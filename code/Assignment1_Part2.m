@@ -7,7 +7,7 @@ m = 0.26*m0;
 T = 300; %temperature (K)
 k = 1.380648e-23; %Boltzmann constant
 tau = 0.2e-12;
-iter = 100; %number of iterations to run the simulation
+iter = 500; %number of iterations to run the simulation
 
 %generate empty arrays
 Px = zeros(n,1);
@@ -34,12 +34,14 @@ V_X(:,1) = vTH.*randn(n,1);
 V_Y(:,1) = vTH.*randn(n,1);
 
 %check average is close to vTH
-Avg = sqrt(V_X.^2 + V_Y.^2)
+Avg = sqrt(V_X.^2 + V_Y.^2);
+VAvg = mean(Avg);
+
 
 %plot histograms
 figure(1)
 hist(Avg,n)
-title('Distribution of Average Scattering Velocity');
+title(['Distribution of Average Scattering Velocity. VAvg = ',num2str(VAvg),'.']);
 
 figure(2)
 hist(V_X,n);
@@ -51,7 +53,6 @@ title('Distribution of Scattering Velocities - Vy Component');
 
 %time loop
 timeStep = 1e-14;
-iter = 100;
 time = 1:iter;
 
 %set up temperature calculation
